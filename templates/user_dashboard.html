@@ -1,0 +1,161 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+
+<header id="home" class="header">
+    <div class="overlay"></div>
+    <div class="header-content container">
+        {% for i in user_profile %}
+        <h1 class="header-title">
+            <span class="up">HI!</span>
+            
+            <span class="down">I am {{i.name | capfirst}}</span>
+        </h1>
+        <p class="header-subtitle">{{i.tagline}}</p>
+
+        
+        {% endfor %}
+    </div>
+</header><!-- end of page header -->
+
+<!-- about section -->
+<section class="section pt-0" id="about">
+    <!-- container -->
+    <div class="container text-center">
+        <!-- about wrapper -->
+        <div class="about">{% for i in user_profile %}
+            
+            <div class="about-caption">
+                <p class="section-subtitle">Who Am I ?</p>
+                <h2 class="section-title mb-3">About Me</h2>
+                <p>
+                    {{i.About}}
+                </p>
+                
+            </div>
+        </div>
+        {% endfor %}<!-- end of about wrapper -->
+    </div><!-- end of container -->
+</section> <!-- end of about section -->
+
+
+{%if user_exp %}
+<!-- My Experience section -->
+<section class="section" id="experience">
+    <!-- container -->
+    <div class="container text-center">
+        <p class="section-subtitle">How Much I Qualify ?</p>
+        <h6 class="section-title mb-6">My Experience</h6>
+        {% for i in user_exp %}
+
+        <!-- blog-wrapper -->
+        <div class="blog-card">
+            
+            <div class="blog-card-body">
+                <h5 class="blog-card-title">{{i.post_name}}</h6>
+
+                    <p class="blog-card-caption">
+                        {{i.company_name}}
+                    </p>
+                    <p class="blog-card-caption">
+                        {{i.start_date}}-{{ i.end_date}}
+                    </p>
+                </div>
+        </div><!-- end of blog wrapper -->
+        {% endfor %}
+    </div><!-- end of container -->
+</section><!-- end of Experience section -->
+{%endif%}
+
+{%if user_edu %}
+<!-- Education section -->
+<section class="section" id="education">
+    <!-- container -->
+    <div class="container text-center">
+        <p class="section-subtitle">How Much I Qualify ?</p>
+        <h6 class="section-title mb-6">My Education</h6>
+        {% for i in user_edu %}
+
+        <!-- blog-wrapper -->
+        <div class="blog-card">
+            
+            <div class="blog-card-body">
+                <h5 class="blog-card-title">{{i.school_name}}</h6>
+
+                    <span class="blog-card-body-p">
+                        {{i.c_name}}
+                    </span><br>
+                    <span class="blog-card-body-p">
+                        {{i.start_date}}-{{ i.end_date}}
+                    </span>
+
+                   
+            </div>
+        </div><!-- end of blog wrapper -->
+        {% endfor %}
+    </div><!-- end of container -->
+</section><!-- end of Education section -->
+{%endif%}
+
+
+
+
+{% if user_skill %}
+<!-- skill section -->
+<section class="section" id="skill">
+    <!-- container -->
+    <div class="container text-center">
+        <p class="section-subtitle">What I Do ?</p>
+        <h6 class="section-title mb-6">My Skills</h6>
+        {% for i in user_skill %}
+
+        <!-- blog-wrapper -->
+        <div class="blog-card">
+            
+            <div class="blog-card-body">
+                <h5 class="blog-card-title">{{i.s_name}}</h6>
+                </div>
+        </div><!-- end of blog wrapper -->
+        {% endfor %}
+    </div><!-- end of container -->
+</section><!-- end of skill section -->
+{%endif%}
+
+
+
+ 
+
+<!-- project section -->
+<section class="section" id="Education">
+    <div class="container text-center">
+        <p class="section-subtitle">How Much I Qualify ?</p>
+        <h6 class="section-title mb-6">My Project</h6>
+        <!-- row -->
+        <div class="pricing-wrapper">
+            {% for i in user_project %}
+            <div class="pricing-card">
+                <div class="pricing-card-header">
+                    <img height="250" width="250"  src="/media/{{i.image}}" class="about-img" alt="/media/{{i.image}}">
+                </div>
+                <div class="pricing-card-body">
+                    <h6 class="pricing-card-title">{{i.project_name}}</h6>
+                    <div class="pricing-card-list">
+                        <p>{{i.company_name}}</p>
+                        <p>{{i.description}}</p>
+                        
+                        
+                    </div>
+                </div>
+                
+            </div>
+           {% endfor%}
+        </div><!-- end of pricing wrapper -->
+    </div> <!-- end of container -->
+</section><!-- end of Project section -->
+
+
+
+
+
+{% endblock %}
