@@ -9,12 +9,12 @@
         {% for i in user_profile %}
         <h1 class="header-title">
             <span class="up">HI!</span>
-            
+
             <span class="down">I am {{i.name | capfirst}}</span>
         </h1>
         <p class="header-subtitle">{{i.tagline}}</p>
 
-        
+
         {% endfor %}
     </div>
 </header><!-- end of page header -->
@@ -25,14 +25,14 @@
     <div class="container text-center">
         <!-- about wrapper -->
         <div class="about">{% for i in user_profile %}
-            
+
             <div class="about-caption">
                 <p class="section-subtitle">Who Am I ?</p>
                 <h2 class="section-title mb-3">About Me</h2>
                 <p>
                     {{i.About}}
                 </p>
-                
+
             </div>
         </div>
         {% endfor %}<!-- end of about wrapper -->
@@ -51,7 +51,7 @@
 
         <!-- blog-wrapper -->
         <div class="blog-card">
-            
+
             <div class="blog-card-body">
                 <h5 class="blog-card-title">{{i.post_name}}</h6>
 
@@ -61,7 +61,7 @@
                     <p class="blog-card-caption">
                         {{i.start_date}}-{{ i.end_date}}
                     </p>
-                </div>
+            </div>
         </div><!-- end of blog wrapper -->
         {% endfor %}
     </div><!-- end of container -->
@@ -79,7 +79,7 @@
 
         <!-- blog-wrapper -->
         <div class="blog-card">
-            
+
             <div class="blog-card-body">
                 <h5 class="blog-card-title">{{i.school_name}}</h6>
 
@@ -90,7 +90,7 @@
                         {{i.start_date}}-{{ i.end_date}}
                     </span>
 
-                   
+
             </div>
         </div><!-- end of blog wrapper -->
         {% endfor %}
@@ -112,46 +112,130 @@
 
         <!-- blog-wrapper -->
         <div class="blog-card">
-            
+
             <div class="blog-card-body">
                 <h5 class="blog-card-title">{{i.s_name}}</h6>
-                </div>
+            </div>
         </div><!-- end of blog wrapper -->
         {% endfor %}
     </div><!-- end of container -->
 </section><!-- end of skill section -->
 {%endif%}
 
+<script>
+    const carousel = document.querySelector(".carousel"),
+        firstImg = carousel.querySelectorAll("img")[0],
+        arrowIcons = document.querySelectorAll(".wrapper i");
+
+    let isDragStart = false, isDragging = false, prevPageX, prevScrollLeft, positionDiff;
+
+    const showHideIcons = () => {
+        // showing and hiding prev/next icon according to carousel scroll left value
+        let scrollWidth = carousel.scrollWidth - carousel.clientWidth; // getting max scrollable width
+        arrowIcons[0].style.display = carousel.scrollLeft == 0 ? "none" : "block";
+        arrowIcons[1].style.display = carousel.scrollLeft == scrollWidth ? "none" : "block";
+    }
+
+    arrowIcons.forEach(icon => {
+        icon.addEventListener("click", () => {
+            let firstImgWidth = firstImg.clientWidth + 14; // getting first img width & adding 14 margin value
+            // if clicked icon is left, reduce width value from the carousel scroll left else add to it
+            carousel.scrollLeft += icon.id == "left" ? -firstImgWidth : firstImgWidth;
+            setTimeout(() => showHideIcons(), 60); // calling showHideIcons after 60ms
+        });
+    });
+
+    const autoSlide = () => {
+        // if there is no image left to scroll then return from here
+        if (carousel.scrollLeft - (carousel.scrollWidth - carousel.clientWidth) > -1 || carousel.scrollLeft <= 0) return;
+
+        positionDiff = Math.abs(positionDiff); // making positionDiff value to positive
+        let firstImgWidth = firstImg.clientWidth + 14;
+        // getting difference value that needs to add or reduce from carousel left to take middle img center
+        let valDifference = firstImgWidth - positionDiff;
+
+        if (carousel.scrollLeft > prevScrollLeft) { // if user is scrolling to the right
+            return carousel.scrollLeft += positionDiff > firstImgWidth / 3 ? valDifference : -positionDiff;
+        }
+        // if user is scrolling to the left
+        carousel.scrollLeft -= positionDiff > firstImgWidth / 3 ? valDifference : -positionDiff;
+    }
+
+    const dragStart = (e) => {
+        // updatating global variables value on mouse down event
+        isDragStart = true;
+        prevPageX = e.pageX || e.touches[0].pageX;
+        prevScrollLeft = carousel.scrollLeft;
+    }
+
+    const dragging = (e) => {
+        // scrolling images/carousel to left according to mouse pointer
+        if (!isDragStart) return;
+        e.preventDefault();
+        isDragging = true;
+        carousel.classList.add("dragging");
+        positionDiff = (e.pageX || e.touches[0].pageX) - prevPageX;
+        carousel.scrollLeft = prevScrollLeft - positionDiff;
+        showHideIcons();
+    }
+
+    const dragStop = () => {
+        isDragStart = false;
+        carousel.classList.remove("dragging");
+
+        if (!isDragging) return;
+        isDragging = false;
+        autoSlide();
+    }
+
+    carousel.addEventListener("mousedown", dragStart);
+    carousel.addEventListener("touchstart", dragStart);
+
+    document.addEventListener("mousemove", dragging);
+    carousel.addEventListener("touchmove", dragging);
+
+    document.addEventListener("mouseup", dragStop);
+    carousel.addEventListener("touchend", dragStop);
+</script>
 
 
- 
 
 <!-- project section -->
-<section class="section" id="Education">
+<section class="section" id="Education">{% if user_skill %}
     <div class="container text-center">
         <p class="section-subtitle">How Much I Qualify ?</p>
         <h6 class="section-title mb-6">My Project</h6>
         <!-- row -->
-        <div class="pricing-wrapper">
+       <style>.over{
+        display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      
+        overflow: auto;
+      }</style>
+      
+        <div class="over pricing-wrapper">
             {% for i in user_project %}
             <div class="pricing-card">
                 <div class="pricing-card-header">
-                    <img height="250" width="250"  src="/media/{{i.image}}" class="about-img" alt="/media/{{i.image}}">
+                    <img height="250" width="250" src="/media/{{i.image}}" class="about-img" alt="/media/{{i.image}}">
                 </div>
                 <div class="pricing-card-body">
                     <h6 class="pricing-card-title">{{i.project_name}}</h6>
                     <div class="pricing-card-list">
                         <p>{{i.company_name}}</p>
                         <p>{{i.description}}</p>
-                        
-                        
+
+
                     </div>
                 </div>
-                
+
             </div>
-           {% endfor%}
+            {% endfor%}
         </div><!-- end of pricing wrapper -->
     </div> <!-- end of container -->
+    {%endif%}
 </section><!-- end of Project section -->
 
 

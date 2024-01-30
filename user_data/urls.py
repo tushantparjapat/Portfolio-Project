@@ -20,4 +20,7 @@ urlpatterns = [
     path('skill_add', views.skill_add,name='skill_add'),
     path('skill_delete', views.skill_delete,name='skill_delete'),
     path('profile_edit', views.profile_edit,name='profile_edit'),   
+    path('forgot_password', views.forgot_password,name='forgot_password'),   
+    path('verify_otp', views.verify_otp,name='verify_otp'),   
+    
 ]

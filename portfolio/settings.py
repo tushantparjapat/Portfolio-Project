@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import smtplib as s
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,6 +21,37 @@ print(BASE_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
+
+# email send
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'dealleadonline@gmail.com'
+EMAIL_HOST_PASSWORD = 'nrapppngvwextecy'
+EMAIL_USE_TLS = True  # or False if you're using SSL
+DEFAULT_FROM_EMAIL = 'dealleadonline@gmail.com'
+
+# def send_mail( email, message):
+#     subject = "OTP for reset password "
+#     body = f"email: {email}\n\nMessage:\n{message}"
+#     messagetsend = f"subject:{subject}\n\n{body}"
+#     try:
+
+#         ob = s.SMTP("smtp.gmail.com", 587)
+#         ob.starttls()
+#         ob.login("dealleadonline.gmail.com", "deallead@gmail.com")
+
+#         ob.sendmail("dealleadonline.gmail.com", email, messagetsend)
+        
+
+#     except Exception as e:
+#         print(e)
+#     finally:
+#          ob.quit()
+        
+    
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-&v)z-b($-+h(_kugig%_66(#3@xht29_llzl@jfsz^621+prh_'
@@ -78,7 +110,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'portfolio.wsgi.application'
-APPEND_SLASH=False
+APPEND_SLASH = False
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -126,13 +158,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS =[
+STATICFILES_DIRS = [
     BASE_DIR, "static"
 ]
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_URL =  'media/'
+MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

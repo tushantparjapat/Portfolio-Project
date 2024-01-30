@@ -11258,6 +11258,8 @@ p {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
+  overflow-x: scroll;
+  
 }
 
 .pricing-wrapper .pricing-card {
@@ -12248,3 +12250,6 @@ pre .code {
 .section-lg {
   padding: 100px 0 !important;
 }
+
+
+

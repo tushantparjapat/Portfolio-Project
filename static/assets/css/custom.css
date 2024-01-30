@@ -229,3 +229,12 @@ table.table .avatar {
     border: 39px solid  #f34646;
     margin: 34px;
 }
+
+.over{
+    display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  overflow-x: scroll;
+    overflow: scroll;
+}

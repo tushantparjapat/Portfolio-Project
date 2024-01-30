@@ -14,7 +14,7 @@
         <div id="editprofile" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    
+
                     <form action="{% url 'profile_edit'%}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="modal-header">
@@ -35,7 +35,7 @@
                                 <label>About</label>
                                 <input type="text" value="{{i.About}}" name="about" class="form-control" required>
                             </div>
-                            
+
 
 
                         </div>
@@ -48,7 +48,7 @@
                     </form>
 
 
-                    
+
                 </div>
             </div>
         </div>
@@ -100,7 +100,7 @@
 
 
             {% for i in user_profile %}
-            
+
             <div class="about-caption">
                 <p class="section-subtitle">Who Am I ?</p>
                 <h2 class="section-title mb-3">About Me</h2>
@@ -108,7 +108,7 @@
                     {{i.About}}
                 </p>
                 {% endfor %}
-                
+
             </div>
         </div><!-- end of about wrapper -->
     </div><!-- end of container -->
@@ -546,7 +546,19 @@
 
         <!-- add Modal HTML -->
         <!-- row -->
-        <div class="pricing-wrapper">
+
+        <style>
+            .over {
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+
+                overflow: auto;
+            }
+        </style>
+        <div class="over pricing-wrapper">
+
             {% for i in user_project %}
             <div class="pricing-card">
                 <div class="pricing-card-header">
